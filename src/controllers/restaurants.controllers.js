@@ -25,7 +25,7 @@ exports.findAllRestaurant = catchAsync(async (req, res, next) => {
 exports.createRestaurant = catchAsync(async (req, res, next) => {
  
   const { 
-    id_users
+    id_users,
     name,
     ruc,
     address,
