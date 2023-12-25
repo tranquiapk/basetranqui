@@ -33,8 +33,7 @@ price:{
 image:{
     type:DataTypes.TEXT,
     allowNull:false,
-     defaultValue:'users/1687320206111-HD-wallpaper-husky-and-sunset-dog-dogs-husky-lake-landscape-nature-sunset-water.jpg',
-},
+    },
 status:{
     type:DataTypes.ENUM('available','disable'),
     allowNull:false,

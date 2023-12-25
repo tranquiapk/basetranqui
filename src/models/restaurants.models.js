@@ -9,11 +9,7 @@ const Restaurant=db.define('restaurants',{
         autoIncrement:true,
         allowNull:false
     },
-    id_users:{
-
-        type:DataTypes.INTEGER,
-        allowNull:false
-    },
+   
     name:{
         type:DataTypes.STRING,
         allowNull:false
@@ -35,14 +31,25 @@ const Restaurant=db.define('restaurants',{
         type:DataTypes.STRING,
         allowNull:false
     },
-    type:{
+    storeImage:{
         type:DataTypes.STRING,
         allowNull:false
+    },
+    id_users:{
+
+        type:DataTypes.INTEGER,
+        allowNull:false
+    },
+    type:{
+        type:DataTypes.ENUM('Restaurante','Farmacia','Tienda','Supermercado'),
+        allowNull:false,
+        defaultValue:'Restaurante'
     },
     status:{
         type:DataTypes.ENUM('available','disable'),
         allowNull:false,
         defaultValue:'available'
-    }
+    },
+   
 })
 module.exports=Restaurant

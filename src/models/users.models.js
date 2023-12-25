@@ -25,13 +25,18 @@ password:{
 },
 
 phone:{
-    type:DataTypes.INTEGER,
+    type:DataTypes.STRING,
     allowNull:false
 },
 status:{
     type:DataTypes.ENUM('available','disable'),
     allowNull:false,
     defaultValue:'available'
+},
+role:{
+    type:DataTypes.ENUM('admin','users'),
+    allowNull:false,
+    defaultValue:'admin'
 }
 })
 

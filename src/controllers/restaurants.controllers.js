@@ -23,8 +23,9 @@ exports.findAllRestaurant = catchAsync(async (req, res, next) => {
 
 //create Restaurants
 exports.createRestaurant = catchAsync(async (req, res, next) => {
+ 
   const { 
-    id_users,
+    id_users
     name,
     ruc,
     address,
@@ -32,10 +33,11 @@ exports.createRestaurant = catchAsync(async (req, res, next) => {
     description,
     type,
     } = req.body;
+    const {id}=req.sessionUser;
     console.log('entrar');
 try {
   const restaurant = await Restaurant.create({
-    id_users:id_users,
+    id_users:id,
     name:name,
     ruc:ruc,
     address:address,

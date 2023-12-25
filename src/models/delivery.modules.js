@@ -31,7 +31,7 @@ const {db}=require('../Database_tranqui/bd.config')
 
     },
     status:{
-        type:DataTypes.STRING,
+        type:DataTypes.ENUM('available','disable'),
         allowNull:false,
         defaultValue:'available'
     },
