@@ -31,7 +31,7 @@ const Restaurant=db.define('restaurants',{
         type:DataTypes.STRING,
         allowNull:false
     },
-    storeImage:{
+    storeImg:{
         type:DataTypes.STRING,
         allowNull:false
     },
