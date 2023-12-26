@@ -1,22 +1,24 @@
-const jwt=require('jsonwebtoken')
-require('dotenv')
-const genereteJWT=(id)=>{
-    return new Promise((resolve,reject)=>{
-        const payload={id}
+const jwt = require('jsonwebtoken');
 
-        jwt.sign(payload,
-            process.env.JWT_SECRET_SED,
-            {
-                expiresIn:process.env.JWT_EXPIRE_IN
-            },
-            (err,token)=>{
-            if(err){
-                console.log(err)
-                reject(err)
-            }
-            resolve(token)
-        })
-    })
-}
+const generateJWT = (id) => {
+  return new Promise((resolve, reject) => {
+    const payload = { id };
 
-module.exports=genereteJWT
+    jwt.sign(
+      payload,
+     process.env.SECRET_JWT_SEED,
+      {
+        expiresIn: process.env.JWT_EXPIRE_IN,
+      },
+      (err, token) => {
+        if (err) {
+          reject(err);
+        }
+
+        resolve(token);
+      }
+    );
+  });
+};
+
+module.exports = generateJWT;

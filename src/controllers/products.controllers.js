@@ -1,4 +1,5 @@
 const Product = require("../models/products.models");
+const Restaurant = require("../models/restaurants.models");
 const catchAsync = require("../utils/catchASync");
 const { storage } = require("../utils/firebase");
 const { ref, getDownloadURL, uploadBytes } = require("firebase/storage");
@@ -12,6 +13,7 @@ const upload = require("../utils/multer");
 exports.findAllProduct = catchAsync(async (req, res, next) => {
   const product = await Product.findAll({
     where: {
+     
       status: "available",
     },
   });
@@ -23,9 +25,9 @@ exports.findAllProduct = catchAsync(async (req, res, next) => {
 });
 //create users
 exports.createProduct = catchAsync(async (req, res, next) => {
-  const { id_restaurants, name, description, price, image } = req.body;
-
-  try {
+  const {name, description, price, image,id_restaurants } = req.body;
+  
+ 
     console.table(req.body);
     console.log("###############################");
     console.table(req.file);
@@ -40,22 +42,21 @@ contentType: 'image/jpeg'
     /* const imgRef=  ref(storage,`products/${ Date.now()}`)
    const imageUpload=await uploadBytes(imgRef,'png' )
  */
+
     const product = await Product.create({
-      id_restaurants,
       name,
       description,
       price,
       image,
+      id_restaurants,
     });
     res.status(200).json({
       status: "success",
       message: "products created",
       product,
     });
-    next();
-  } catch (error) {
-    console.log(error);
-  }
+   // next();
+ 
 });
 
 //findOne Product

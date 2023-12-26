@@ -4,16 +4,16 @@ const catchAsync=require('../utils/catchASync')
 
 exports.validUser=catchAsync(async(req,res,next)=>{
     const {id}=req.params
-    const users=await User.findOne({
+    const user=await User.findOne({
         where:{
             id,
             status:'available'
         }
     })
-    if(!users){
+    if(!user){
         return next(new AppError(`User with id:${id} was not found...`,404))
      }
-     req.users=users
+     req.user=user
 
      next()
 

@@ -1,5 +1,5 @@
 const {DataTypes}=require('sequelize')
-const {db} =require('../Database_tranqui/bd.config')
+const {db} =require('../Database/bd.config')
 
 const User=db.define("users",{
 id:{
@@ -23,11 +23,18 @@ password:{
     type:DataTypes.STRING,
     allowNull:false
 },
-
+address:{
+    type:DataTypes.STRING,
+    allowNull:false
+},
 phone:{
     type:DataTypes.STRING,
     allowNull:false
 },
+passwordChangedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
 status:{
     type:DataTypes.ENUM('available','disable'),
     allowNull:false,

@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const { db } = require("../Database_tranqui/bd.config");
+const { db } = require("../Database/bd.config");
  const TimeTable=db.define('timetable',{
 id:{
     type:DataTypes.INTEGER,

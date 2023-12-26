@@ -1,13 +1,14 @@
 const express=require('express')
 const productcontrollers=require('../controllers/products.controllers')
 const productmiddleware=require('../middlewares/products.middlewares')
+const restaurantMadlewares=require("../middlewares/restaurants.middlewares")
 const upload =require('../utils/multer')
 
 const router=express.Router()
 router
 .route('/') 
 .get(productcontrollers.findAllProduct)
-.post(upload.single('ImageProducts'), productcontrollers.createProduct)
+.post(productcontrollers.createProduct)
 router.use('/:id',productmiddleware.validProduct)
 router
   .route('/:id')

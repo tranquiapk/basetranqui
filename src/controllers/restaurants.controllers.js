@@ -1,10 +1,13 @@
 
 const Restaurant = require("../models/restaurants.models");
+const User =require('../models/users.models')
 const catchAsync = require("../utils/catchASync");
+
 
 //const {token}=require('morgan')
 const AppError = require("../utils/appError");
 const { add } = require("winston");
+const Product = require("../models/products.models");
 //findall
 
 exports.findAllRestaurant = catchAsync(async (req, res, next) => {
@@ -12,7 +15,15 @@ exports.findAllRestaurant = catchAsync(async (req, res, next) => {
     where: {
      
       status: "available"
+    },
+    attributes:
+    {
+exclude:["id_users"]
+    },
+    include:{
+      model:User
     }
+   
   });
   res.status(200).json({
     results: restaurant.length,
@@ -21,31 +32,51 @@ exports.findAllRestaurant = catchAsync(async (req, res, next) => {
   });
 }); 
 
+exports.findAllRestauranProducts = catchAsync(async (req, res, next) => {
+  const{id}=req.params
+
+  const restProduct = await Product.findAll({
+    where: {
+      id_restaurants:id,
+     
+      status: "available"
+    },
+    
+   
+  });
+  res.status(200).json({
+    results: restProduct.length,
+    success: "ok",
+    restProduct,
+  });
+}); 
+
 //create Restaurants
 exports.createRestaurant = catchAsync(async (req, res, next) => {
- 
+  
   const { 
-    id_users,
+    
     name,
     ruc,
     address,
     phone,
     description,
-    type,
+    storeImg
     } = req.body;
     const {id}=req.sessionUser;
-    console.log('entrar');
+    
 try {
   const restaurant = await Restaurant.create({
-    id_users:id,
+   
     name:name,
     ruc:ruc,
     address:address,
     phone:phone,
     description:description,
-    type:type,
+    storeImg:storeImg,
+    id_users:id,
       })
-      console.log('entrar');
+      
   res.status(200).json({
     status: "success",
     message: "Restaurant created",
@@ -90,8 +121,12 @@ exports.updateRestaurant = catchAsync(async (req, res, next) => {
 });
 //Delete restaurant
 exports.deleteProduct = catchAsync(async (req, res, next) => {
-  const { restaurant } = req;
-  await Restaurant.update({ status: "disable" });
+  const { id } = req.params;
+  const restaurant=await Restaurant.destroy({ 
+    where:{
+      id,
+    }
+   });
   res.status(200).json({
     status: "success",
     message: `Restaurant with id:${restaurant.id} deleted`,
