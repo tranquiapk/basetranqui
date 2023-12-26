@@ -17,6 +17,10 @@ const  Client = db.define('clients',{
         type:DataTypes.STRING,
         allowNull:false
     },
+    password:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
     phone:{
         type:DataTypes.STRING,
         allowNull:false
