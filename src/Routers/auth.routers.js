@@ -12,7 +12,7 @@ router.post(
   validationMidlewares.createUSersValidation,
   authControllers.registro
 );
-router.post("/logear", authControllers.logear);
+router.post("/logear",authControllers.logear);
 router.use(authMidlewares.protect);
 router.get("/renew", authControllers.renew);
 router.patch(

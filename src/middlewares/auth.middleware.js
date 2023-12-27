@@ -53,7 +53,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   req.sessionUser = user;
-  console.log("aquiasas", req);
+ 
   next();
 });
 

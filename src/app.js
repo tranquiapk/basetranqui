@@ -42,7 +42,7 @@ app.use(sanitizer.clean({
     noSql:true,
     sql:false
 }))
-if("process.env.NODE_ENV"==='development'){
+if(process.env.NODE_ENV==='development'){
     app.use(morgan('dev'))
 }
 app.use('/api/v1',limiter)
