@@ -21,8 +21,13 @@ exports.findAllRestaurant = catchAsync(async (req, res, next) => {
 exclude:["id_users"]
     },
     include:{
-      model:User
+      model:User,
+      attributes:{
+        exclude:["password","role","address"]
+      }
+
     }
+
    
   });
   res.status(200).json({
