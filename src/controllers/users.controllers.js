@@ -40,7 +40,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
   });
 
   return res.status(201).json({
-    message: "alo...111",
+    message: "ok",
     user,
   });
   const token = await generateJWT(user.id);
@@ -87,11 +87,16 @@ exports.loginUser = catchAsync(async (req, res, next) => {
 //findOne users
 
 exports.findOneUser = catchAsync(async (req, res, next) => {
-  const { user } = req;
+  const { id } = req.params;
+  const users=await User.findOne({
+    where:{
+      id,
+    }
+  })
   res.status(200).json({
     status: "success",
     message: "Users found",
-    user,
+    users,
   });
 });
 //Update Users
