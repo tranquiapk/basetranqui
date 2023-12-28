@@ -16,10 +16,7 @@ exports.findAllRestaurant = catchAsync(async (req, res, next) => {
      
       status: "available"
     },
-    attributes:
-    {
-exclude:["id_users"]
-    },
+    
     include:{
       model:User,
       attributes:{

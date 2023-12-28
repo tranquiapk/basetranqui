@@ -87,11 +87,11 @@ exports.loginUser = catchAsync(async (req, res, next) => {
 //findOne users
 
 exports.findOneUser = catchAsync(async (req, res, next) => {
-  const { users } = req;
+  const { user } = req;
   res.status(200).json({
     status: "success",
     message: "Users found",
-    users,
+    user,
   });
 });
 //Update Users
