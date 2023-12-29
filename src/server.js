@@ -6,7 +6,7 @@ db.authenticate()
 .then(()=>console.log("DataBase..!!"))
 .catch((error)=>console.log(error))
 intModels()
-db.sync()
+db.sync({forse:true})
 .then(()=>console.log('Database Authenticated'))
 .catch((error)=>console.log(error))
 //const PORT =process.env.PORT
