@@ -52,8 +52,7 @@ exports.createClient = catchAsync(async (req, res, next) => {
 //*login de cliente 
 exports.login = catchAsync(async (req, res, next) => {
   //1. traernos la informacion de la req.body
-  console.log("aqui",req.body)
-  console.log("aqui11",req.params)
+  
   const { email,password } = req.body;
 
   const client = await Client.findOne({
@@ -63,13 +62,13 @@ exports.login = catchAsync(async (req, res, next) => {
       status: 'available',
     },
   })
-  console.log("res22",client)
+  
   if (!email) {
     return next(new AppError(`User with email: ${email} not found`, 404));
   }
   //3. validar si la contraseña es correcta
   
-  console.log("aqui",password)
+ 
     if (!(await bcrypt.compare(password, client.password))) {
       return next(new AppError(`Incorrect email or password`, 401));
     }
