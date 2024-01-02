@@ -7,7 +7,7 @@ const { add } = require("winston");
 //findall client
 
 exports.findAllClient = catchAsync(async (req, res, next) => {
-  try {
+  
     
     const client = await Client.findAll({
       where: {
@@ -20,18 +20,21 @@ exports.findAllClient = catchAsync(async (req, res, next) => {
       success: "ok",
       client,
     });
-  } catch (error) {
-    console.log(error)
-  }
+  
   
 });
 
 //create client
+
 exports.createClient = catchAsync(async (req, res, next) => {
-  const { name,  email, phone,address,city,} = req.body;
+  const { name,  email,password,phone,address,city,} = req.body;
+
+  const salt = await bcrypt.genSalt(12);
+  const encryptedPassword = await bcrypt.hash(password, salt);
   const client = await Client.create({
     name,
     email,
+    password:encryptedPassword,
     phone,
     address,
     city
