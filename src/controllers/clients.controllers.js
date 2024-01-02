@@ -1,6 +1,6 @@
 const Client = require("../models/client.modules");
 const catchAsync = require("../utils/catchASync");
-
+const bcrypt =require('bcryptjs')
 //const {token}=require('morgan')
 const AppError = require("../utils/appError");
 const { add } = require("winston");
