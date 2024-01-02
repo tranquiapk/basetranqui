@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, ENUM } = require("sequelize");
 const { db } = require("../Database/bd.config");
 
 const Order=db.define('orders',{
@@ -16,6 +16,7 @@ const Order=db.define('orders',{
         type:DataTypes.INTEGER,
         allowNull:false
     },
+  
     date_orders:{
         type:DataTypes.DATE,
         allowNull:false
@@ -30,7 +31,7 @@ const Order=db.define('orders',{
         allowNull:false
     },
     payment:{
-        type:DataTypes.DECIMAL(10,2),
+        type:DataTypes.DECIMAL(10.2),
         allowNull:false
     },
     discount:{
@@ -39,7 +40,7 @@ const Order=db.define('orders',{
     },
     note:{
         type:DataTypes.STRING,
-        allowNull:false
+        allowNull:true
     },
     status:{
         type:DataTypes.ENUM('available','disable'),

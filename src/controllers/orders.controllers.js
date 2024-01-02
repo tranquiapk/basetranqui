@@ -9,7 +9,7 @@ const { add } = require("winston");
 exports.findAllOrders = catchAsync(async (req, res, next) => {
   const order = await Order.findAll({
     where: {
-      id,
+      status:"available"
     }
   });
   res.status(200).json({
@@ -21,10 +21,10 @@ exports.findAllOrders = catchAsync(async (req, res, next) => {
 
 //create Orders
 exports.createOrders = catchAsync(async (req, res, next) => {
-  const { id_client, id_products, date_orders, date_delivery, total_price,payment,discount,note } = req.body;
+  const { id_client,id_product,  date_orders, date_delivery, total_price,payment,discount,note } = req.body;
   const order = await Order.create({
     id_client,
-    id_products,
+    id_product,
     date_orders,
     date_delivery,
     total_price,
