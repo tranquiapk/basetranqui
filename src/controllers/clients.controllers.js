@@ -1,8 +1,9 @@
 const Client = require("../models/client.modules");
 const catchAsync = require("../utils/catchASync");
 const bcrypt =require('bcryptjs')
-//const {token}=require('morgan')
-const AppError = require("../utils/appError");
+const generateJWT =require('../utils/jwt');
+const AppError =require('../utils/appError')
+const validetClient =require("../middlewares/clients.middlewares")
 const { add } = require("winston");
 //findall client
 
@@ -48,35 +49,38 @@ exports.createClient = catchAsync(async (req, res, next) => {
   
 });
 
-
+//*login de cliente 
 exports.login = catchAsync(async (req, res, next) => {
   //1. traernos la informacion de la req.body
-  const { email, password } = req.body;
+  console.log("aqui",req.body)
+  console.log("aqui11",req.params)
+  const { email,password } = req.body;
 
-  //2. buscar el usuario y revisar si existe
   const client = await Client.findOne({
     where: {
+      
       email: email.toLowerCase(),
       status: 'available',
     },
   })
-
-  if (!client) {
-      return next(new AppError(`User with email: ${email} not found`, 404));
-    }
-    //3. validar si la contraseña es correcta
+  console.log("res22",client)
+  if (!email) {
+    return next(new AppError(`User with email: ${email} not found`, 404));
+  }
+  //3. validar si la contraseña es correcta
   
+  console.log("aqui",password)
     if (!(await bcrypt.compare(password, client.password))) {
       return next(new AppError(`Incorrect email or password`, 401));
     }
   
     //4. generar el token
-    
+   
     //5. enviar la respuesta al cliente
 
 res.status(200).json({
   status: 'success',
- 
+
   client: {
       id: client.id,
       name: client.name,
@@ -92,7 +96,12 @@ res.status(200).json({
 //findOne client
 
 exports.findOneClient = catchAsync(async (req, res, next) => {
-  const {client } = req;
+  const {id} = req.params;
+  const client=await Client.findOne({
+    where:{
+      id,
+    }
+  })
   res.status(200).json({
     status: "success",
     message: "client found",
@@ -109,7 +118,7 @@ exports.updateClient = catchAsync(async (req, res, next) => {
     client: {
       id: client.id,
       name: client.name,
-      price: client.price,
+      email: client.email,
       status: client.status,
     },
   });

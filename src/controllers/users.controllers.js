@@ -61,7 +61,7 @@ exports.loginUser = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   const users = await User.findOne({
     where: {
-      email: email.tolowercase(),
+      email: email.toLowerCase(),
       status: "available",
     },
   });

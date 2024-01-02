@@ -9,9 +9,9 @@ routerA
 .get(clientcontrollers.findAllClient)
 
 .post(clientcontrollers.createClient)
+routerA.post('/login',clientcontrollers.login);
 routerA.use(clientmiddleware.validClient)
 
-routerA.post("/login",clientcontrollers.login);
 
 routerA
   .route('/:id')
