@@ -48,6 +48,50 @@ exports.createClient = catchAsync(async (req, res, next) => {
   
 });
 
+
+exports.login = catchAsync(async (req, res, next) => {
+  //1. traernos la informacion de la req.body
+  const { email, password } = req.body;
+
+  //2. buscar el usuario y revisar si existe
+  const user = await User.findOne({
+    where: {
+      email: email.toLowerCase(),
+      status: 'available',
+    },
+  })
+
+  if (!user) {
+      return next(new AppError(`User with email: ${email} not found`, 404));
+    }
+    //3. validar si la contraseña es correcta
+  
+    if (!(await bcrypt.compare(password, user.password))) {
+      return next(new AppError(`Incorrect email or password`, 401));
+    }
+  
+    //4. generar el token
+    const token = await generateJWT(user.id);
+  
+    console.log(token);
+
+    //5. enviar la respuesta al cliente
+
+res.status(200).json({
+  status: 'success',
+  token,
+  user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      address: user.address,
+      phone: user.phone,
+      role: user.role,
+  },
+});
+});
+
+
 //findOne client
 
 exports.findOneClient = catchAsync(async (req, res, next) => {

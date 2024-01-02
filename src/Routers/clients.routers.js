@@ -7,8 +7,12 @@ const routerA=express.Router()
 routerA
 .route('/')
 .get(clientcontrollers.findAllClient)
+
 .post(clientcontrollers.createClient)
 routerA.use(clientmiddleware.validClient)
+
+routerA.post("/login",clientcontrollers.login);
+
 routerA
   .route('/:id')
   .get(clientmiddleware.validClient,clientcontrollers.findOneClient)
