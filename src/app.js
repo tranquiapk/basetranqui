@@ -25,6 +25,7 @@ const deliveryRouter=require('./Routers/delivery.routers')
 /////////////////////////////////////////
 
 const app=express()
+app.set('trust proxy', true);
 const limiter=rateLimit({
     max:100000,
     windowMS:60*60*1000,
